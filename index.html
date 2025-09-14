@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HTML/CSS/JS Playground</title>
+  <style>
+    body { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; padding: 2rem; max-width: 900px; margin: auto; }
+    header { display:flex; align-items:center; gap:1rem; }
+    h1 { margin: 0; font-size: 1.6rem; }
+    .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-top: 1rem; }
+    .card { padding: 1rem; border: 1px solid #e6e6e6; border-radius: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.03); }
+    .card a { text-decoration: none; color: #0b5fff; font-weight: 600; }
+    .meta { color: #666; font-size: 0.9rem; margin-top: .5rem; }
+    footer { margin-top: 2rem; color: #666; font-size: 0.85rem; }
+    footer p { text-align: center; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>HTML / CSS / JS Playground</h1>
+  </header>
+
+  <p>Automatically generated index of subprojects. Each item links to a folder that contains its own <code>index.html</code>.</p>
+
+  <div class="grid">
+    <div class="card"><a href="./fireworks/">fireworks</a><div class="meta">/fireworks/index.html</div></div>
+            <div class="card"><a href="./simple-drag-drop/">simple-drag-drop</a><div class="meta">/simple-drag-drop/index.html</div></div>
+            <div class="card"><a href="./simple-gauge-chart/">simple-gauge-chart</a><div class="meta">/simple-gauge-chart/index.html</div></div>
+            <div class="card"><a href="./type-writer-effect/">type-writer-effect</a><div class="meta">/type-writer-effect/index.html</div></div>
+  </div>
+
+   <footer>
+    <p>Copyright © <span id="year"></span> - MN Research</p>
+  </footer>
+</body>
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</html>
