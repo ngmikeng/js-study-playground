@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sticky Table Columns Demo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Sticky Table Columns Demo</h1>
+            <button id="theme-toggle" class="theme-toggle">
+                <span class="theme-toggle-light">🌞</span>
+                <span class="theme-toggle-dark">🌙</span>
+            </button>
+        </div>
+        <div class="table-wrapper">
+            <table class="sticky-table">
+                <thead>
+                    <tr>
+                        <th class="sticky-col sticky-col-1">ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Department</th>
+                        <th>Position</th>
+                        <th>Location</th>
+                        <th>Start Date</th>
+                        <th>Salary</th>
+                        <th class="sticky-col sticky-col-last">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data rows will be added via JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>

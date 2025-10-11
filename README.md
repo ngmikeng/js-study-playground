@@ -2,6 +2,8 @@
 
 This repository is a lightweight playground for practicing frontend (HTML/CSS/JS) projects.
 
+[Live Demo](https://ngmikeng.github.io/js-study-playground/)
+
 ## Features
 - Root `index.html` is automatically generated to list all subfolders that contain their own `index.html`.
 - A GitHub Action runs on every push to `main` to regenerate and commit `index.html`.

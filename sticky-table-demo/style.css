@@ -1,0 +1,172 @@
+:root {
+    /* Dark theme variables */
+    --bg-color: #1a1a1a;
+    --text-color: #fff;
+    --table-bg: #2d2d2d;
+    --table-header-bg: #363636;
+    --table-border: #404040;
+    --table-alt-row: #333333;
+    --sticky-col-bg: #363636;
+    --sticky-col-hover: #404040;
+    --sticky-border: #505050;
+}
+
+:root[data-theme="light"] {
+    /* Light theme variables */
+    --bg-color: #f5f5f5;
+    --text-color: #333;
+    --table-bg: #fff;
+    --table-header-bg: #f0f0f0;
+    --table-border: #ddd;
+    --table-alt-row: #f9f9f9;
+    --sticky-col-bg: #f0f0f0;
+    --sticky-col-hover: #e5e5e5;
+    --sticky-border: #ccc;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    position: relative;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.theme-toggle {
+    padding: 8px 16px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    background-color: var(--table-header-bg);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.05);
+}
+
+.theme-toggle-light {
+    display: none;
+}
+
+[data-theme="light"] .theme-toggle-light {
+    display: inline;
+}
+
+[data-theme="light"] .theme-toggle-dark {
+    display: none;
+}
+
+.sticky-table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 1500px; /* Force horizontal scroll */
+    background-color: var(--table-bg);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.sticky-table th,
+.sticky-table td {
+    padding: 12px 15px;
+    border: 1px solid var(--table-border);
+    white-space: nowrap;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.sticky-table thead th {
+    background-color: var(--table-header-bg);
+    font-weight: bold;
+    text-align: left;
+}
+
+.sticky-table tbody tr:nth-child(even) {
+    background-color: var(--table-alt-row);
+}
+
+/* Sticky column styles */
+.sticky-col {
+    position: sticky;
+    background-color: var(--sticky-col-bg);
+    z-index: 1;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+/* First sticky column (ID) */
+.sticky-col-1 {
+    left: 0;
+    z-index: 2;
+    border-right: 2px solid var(--sticky-border) !important;
+}
+
+/* Last sticky column (Actions) */
+.sticky-col-last {
+    right: 0;
+    z-index: 2;
+    border-left: 2px solid var(--sticky-border) !important;
+}
+
+/* Sticky column cells in tbody */
+.sticky-table tbody td.sticky-col {
+    background-color: var(--table-bg);
+}
+
+.sticky-table tbody tr:nth-child(even) td.sticky-col {
+    background-color: var(--table-alt-row);
+}
+
+/* Hover effect for sticky columns */
+.sticky-col:hover {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+    background-color: var(--sticky-col-hover);
+}
+
+/* Actions column styling */
+.btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.btn-edit {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.btn-delete {
+    background-color: #f44336;
+    color: white;
+}
