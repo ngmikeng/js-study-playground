@@ -1,0 +1,182 @@
+/* Basic */
+:root {
+    --light-bg: #fdf6f3;
+    --light-text: #333;
+    --light-primary: #a34e5c;
+    --dark-bg: #1e1e2f;
+    --dark-text: #f0f0f0;
+    --dark-primary: #ffb6c1; /* Light pink for contrast */
+}
+
+body {
+    font-family: 'Georgia', serif;
+    background-color: var(--light-bg);
+    color: var(--light-text);
+    transition: background-color 0.5s, color 0.5s;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* For heart animation layer */
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: var(--dark-bg);
+    color: var(--dark-text);
+}
+
+body.dark-mode h1, body.dark-mode h2 {
+    color: var(--dark-primary);
+}
+
+.letter-container {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 90%;
+    text-align: center;
+    z-index: 10; /* Keep content above animation */
+}
+
+body.dark-mode .letter-container {
+    background: #2a2a3e; /* Slightly lighter dark background for the letter */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+    font-size: 2.5em;
+    color: var(--light-primary);
+    margin-bottom: 0.2em;
+}
+
+.names {
+    font-size: 1.8em;
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+/* Count down */
+.countdown-timer {
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.time-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    background: var(--light-primary);
+    color: white;
+    border-radius: 8px;
+    min-width: 70px;
+}
+
+body.dark-mode .time-unit {
+    background: var(--dark-primary);
+    color: var(--dark-text);
+}
+
+.time-unit span {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.time-unit label {
+    font-size: 0.8em;
+    text-transform: uppercase;
+}
+
+
+/* --- Responsiveness --- */
+@media (max-width: 700px) {
+    .letter-container {
+        padding: 20px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    .names {
+        font-size: 1.5em;
+    }
+
+    .countdown-timer {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .time-unit {
+        min-width: 80px;
+        margin: 5px;
+    }
+
+    .time-unit span {
+        font-size: 1.5em;
+    }
+}
+
+
+#mode-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px;
+    font-size: 1.2em;
+    cursor: pointer;
+    background: none;
+    border: 2px solid var(--light-text);
+    border-radius: 50%;
+    transition: all 0.3s;
+    z-index: 20;
+}
+
+body.dark-mode #mode-toggle {
+    border-color: var(--dark-text);
+}
+
+
+/* Heart Animation */
+.heart-animation-area {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Allows clicks to pass through */
+    overflow: hidden;
+    z-index: 5;
+}
+
+.heart {
+    position: absolute;
+    bottom: -50px; /* Start below the viewport */
+    font-size: 1.5em;
+    animation: floatUp linear infinite;
+    opacity: 0.8;
+}
+
+/* Keyframes for the floating animation */
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(-100vh) rotate(30deg);
+        opacity: 0;
+    }
+}
