@@ -3,6 +3,7 @@ const translations = {
     en: {
         greeting: "Dear [NAME],",
         invited: "You're Invited!",
+        save_the_date: "Save the Date",
         location_header: "Venue Location",
         days_label: "Days",
         hours_label: "Hours",
@@ -13,6 +14,7 @@ const translations = {
     vn: {
         greeting: "Gửi [NAME],",
         invited: "Kính Mời!",
+        save_the_date: "Lưu giữ ngày này",
         location_header: "Địa Điểm Tổ Chức",
         days_label: "Ngày",
         hours_label: "Giờ",
@@ -28,7 +30,7 @@ let currentLang = 'en'; // Default language
 function getQueryParams() {
     const urlParams = new URLSearchParams(window.location.search);
     return {
-        receiverName: urlParams.get('to') || 'Guest',
+        receiverName: urlParams.get('to') || '',
         brideName: urlParams.get('bride') || 'The Bride',
         groomName: urlParams.get('groom') || 'The Groom',
         dateTime: urlParams.get('date') || '2026-12-31T12:00:00',
@@ -42,11 +44,25 @@ document.getElementById('receiver-name').textContent = params.receiverName; // A
 document.getElementById('bride-name').textContent = params.brideName;
 document.getElementById('groom-name').textContent = params.groomName;
 
-const weddingDateTime = new Date(params.dateTime);
-document.getElementById('wedding-date-time').textContent = weddingDateTime.toLocaleString('en-US', {
-    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', 
-    hour: '2-digit', minute: '2-digit' 
-});
+// --- Check for Named Guest ---
+const isNamedGuest = params.receiverName && params.receiverName.trim() !== '';
+
+// 1. Hide/Show Greeting and Change H1 Text
+const greetingElement = document.querySelector('.greeting');
+const h1Element = document.querySelector('[data-key="invited"]'); // Use the data-key selector for H1
+
+if (isNamedGuest) {
+    // If name is present, show greeting and set H1 key to 'invited'
+    greetingElement.style.display = 'block';
+    h1Element.setAttribute('data-key', 'invited');
+    // The setLanguage function will inject the name later
+} else {
+    // If name is NOT present, hide greeting and set H1 key to 'save_the_date'
+    greetingElement.style.display = 'none';
+    h1Element.setAttribute('data-key', 'save_the_date');
+}
+
+const weddingDateTime = setStartDateTime();
 
 //-------------- Countdown Timer
 const countdownElements = {
@@ -122,8 +138,11 @@ function setLanguage(lang) {
 
         // Special handling for the greeting to insert the receiver name
         if (key === 'greeting') {
-            text = text.replace('[NAME]', `<span id="receiver-name">${params.receiverName}</span>`);
-            element.innerHTML = text; // Use innerHTML to preserve the span
+            // Only attempt to insert the name if it is a named guest
+            if (isNamedGuest) {
+                text = text.replace('[NAME]', `<span id="receiver-name">${params.receiverName}</span>`);
+                element.innerHTML = text;
+            }
         } else {
             element.textContent = text;
         }
@@ -132,6 +151,8 @@ function setLanguage(lang) {
     // Update the toggle button icon
     const langToggle = document.getElementById('lang-toggle');
     langToggle.textContent = lang === 'en' ? '🇻🇳' : '🇬🇧'; // Toggle icon
+
+    setStartDateTime();
 }
 
 // Event Listener for the toggle button
@@ -197,5 +218,15 @@ function createHeart() {
 setInterval(createHeart, 500);
 
 
+function setStartDateTime() {
+    const params = getQueryParams();
+    const weddingDateTime = new Date(params.dateTime);
+    const locale = currentLang === 'en' ? 'en-US' : 'vi-VN';
+    document.getElementById('wedding-date-time').textContent = weddingDateTime.toLocaleString(locale, {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+        hour: '2-digit', minute: '2-digit'
+    });
 
+    return weddingDateTime;
+}
 
