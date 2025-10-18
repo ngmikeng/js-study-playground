@@ -97,7 +97,7 @@ function createLocationLink(address) {
     // 3. Create the <a> element
     const link = document.createElement('a');
     link.href = googleMapsUrl;
-    link.textContent = address; // The visible text is the full address
+    link.textContent = `📍 ${address}`; // The visible text is the full address
     link.target = "_blank"; // Open in a new tab
     link.rel = "noopener noreferrer"; // Security best practice
     link.classList.add('location-link'); // Add a class for styling
@@ -108,7 +108,7 @@ function createLocationLink(address) {
 }
 
 // Initial call to create the link
-createLocationLink(`📍 ${params.locationAddress}`);
+createLocationLink(`${params.locationAddress}`);
 
 // --- Language Toggle Logic ---
 function setLanguage(lang) {
