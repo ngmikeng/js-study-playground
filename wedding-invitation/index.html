@@ -8,44 +8,55 @@
 </head>
 <body>
 
-    <button id="mode-toggle" aria-label="Toggle dark/light mode">🌙</button>
+    <div class="menu-setting">
+        <button id="lang-toggle" aria-label="Toggle language">🇻🇳</button>
+        <button id="mode-toggle" aria-label="Toggle dark/light mode">🌙</button>
+    </div>
+    
 
     <div class="letter-container">
-        <h1>You're Invited!</h1>
+        <p class="greeting" data-key="greeting">Dear <span id="receiver-name">Guest</span>,</p> 
+        
+        <h1 data-key="invited">You're Invited!</h1>
         <p class="names">
-            <span id="bride-name">Bride</span> & <span id="groom-name">Groom</span>
+            <span id="bride-name">Bride</span>
+            <span style="color: #e25555;">&#10084;&#65039;</span>
+            <span id="groom-name">Groom</span>
         </p>
 
         <div class="countdown-section">
-            <h2>Our Big Day Starts In:</h2>
             <div id="countdown" class="countdown-timer">
                 <div class="time-unit">
                     <span id="days">00</span>
-                    <label>Days</label>
+                    <label data-key="days_label">Days</label>
                 </div>
                 <div class="time-unit">
                     <span id="hours">00</span>
-                    <label>Hours</label>
+                    <label data-key="hours_label">Hours</label>
                 </div>
                 <div class="time-unit">
                     <span id="minutes">00</span>
-                    <label>Minutes</label>
+                    <label data-key="minutes_label">Minutes</label>
                 </div>
                 <div class="time-unit">
                     <span id="seconds">00</span>
-                    <label>Seconds</label>
+                    <label data-key="seconds_label">Seconds</label>
                 </div>
             </div>
             <p id="wedding-date-time" class="date-display">Date & Time</p>
         </div>
 
-        <p class="message">
+        <div class="location-display">
+            <h3 data-key="location_header">Venue Location</h3>
+            <p id="wedding-location-link"></p> 
+        </div>
+
+        <p class="message" data-key="message_body">
             We are overjoyed to invite you to celebrate our marriage. Your presence is the greatest gift.
         </p>
     </div>
 
     <div class="heart-animation-area"></div>
-
     <script src="script.js"></script>
 </body>
 </html>

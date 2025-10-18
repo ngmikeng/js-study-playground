@@ -1,16 +1,44 @@
+// --- Translation Data ---
+const translations = {
+    en: {
+        greeting: "Dear [NAME],",
+        invited: "You're Invited!",
+        location_header: "Venue Location",
+        days_label: "Days",
+        hours_label: "Hours",
+        minutes_label: "Minutes",
+        seconds_label: "Seconds",
+        message_body: "We are overjoyed to invite you to celebrate our marriage. Your presence is the greatest gift.",
+    },
+    vn: {
+        greeting: "Gửi [NAME],",
+        invited: "Kính Mời!",
+        location_header: "Địa Điểm Tổ Chức",
+        days_label: "Ngày",
+        hours_label: "Giờ",
+        minutes_label: "Phút",
+        seconds_label: "Giây",
+        message_body: "Chúng tôi vô cùng hạnh phúc khi mời bạn đến chung vui trong ngày cưới. Sự hiện diện của bạn là món quà lớn nhất.",
+    }
+};
+
+let currentLang = 'en'; // Default language
+
 // Function to get query parameters
 function getQueryParams() {
     const urlParams = new URLSearchParams(window.location.search);
     return {
+        receiverName: urlParams.get('to') || 'Guest',
         brideName: urlParams.get('bride') || 'The Bride',
         groomName: urlParams.get('groom') || 'The Groom',
-        // Use ISO format YYYY-MM-DDTHH:MM:SS for best compatibility
-        dateTime: urlParams.get('date') || '2026-12-31T12:00:00' 
+        dateTime: urlParams.get('date') || '2026-12-31T12:00:00',
+        locationAddress: urlParams.get('location') || 'A Beautiful Venue, City, Country'
     };
 }
 
 // Apply the names and date to the HTML
 const params = getQueryParams();
+document.getElementById('receiver-name').textContent = params.receiverName; // Apply receiver name
 document.getElementById('bride-name').textContent = params.brideName;
 document.getElementById('groom-name').textContent = params.groomName;
 
@@ -55,6 +83,63 @@ function updateCountdown() {
 updateCountdown();
 const timerInterval = setInterval(updateCountdown, 1000);
 
+// --- Location Link Generator ---
+
+function createLocationLink(address) {
+    const locationElement = document.getElementById('wedding-location-link');
+    
+    // 1. URL-encode the address for use in Google Maps query
+    const encodedAddress = encodeURIComponent(address);
+    
+    // 2. Create the Google Maps URL
+    const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
+    
+    // 3. Create the <a> element
+    const link = document.createElement('a');
+    link.href = googleMapsUrl;
+    link.textContent = address; // The visible text is the full address
+    link.target = "_blank"; // Open in a new tab
+    link.rel = "noopener noreferrer"; // Security best practice
+    link.classList.add('location-link'); // Add a class for styling
+
+    // 4. Inject the link into the container
+    locationElement.innerHTML = ''; // Clear previous content
+    locationElement.appendChild(link);
+}
+
+// Initial call to create the link
+createLocationLink(`📍 ${params.locationAddress}`);
+
+// --- Language Toggle Logic ---
+function setLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem('lang', lang); // Save preference
+    
+    // Update content based on data-key
+    document.querySelectorAll('[data-key]').forEach(element => {
+        const key = element.getAttribute('data-key');
+        let text = translations[lang][key];
+
+        // Special handling for the greeting to insert the receiver name
+        if (key === 'greeting') {
+            text = text.replace('[NAME]', `<span id="receiver-name">${params.receiverName}</span>`);
+            element.innerHTML = text; // Use innerHTML to preserve the span
+        } else {
+            element.textContent = text;
+        }
+    });
+
+    // Update the toggle button icon
+    const langToggle = document.getElementById('lang-toggle');
+    langToggle.textContent = lang === 'en' ? '🇻🇳' : '🇬🇧'; // Toggle icon
+}
+
+// Event Listener for the toggle button
+document.getElementById('lang-toggle').addEventListener('click', () => {
+    const newLang = currentLang === 'en' ? 'vn' : 'en';
+    setLanguage(newLang);
+});
+
 // ---------------- Dark/Light Theme Toggle ----------------
 const modeToggle = document.getElementById('mode-toggle');
 const body = document.body;
@@ -73,6 +158,14 @@ modeToggle.addEventListener('click', () => {
 
 // Check local storage for preferred mode on load
 document.addEventListener('DOMContentLoaded', () => {
+    // Check local storage for language preference
+    const storedLang = localStorage.getItem('lang');
+    if (storedLang && ['en', 'vn'].includes(storedLang)) {
+        setLanguage(storedLang);
+    } else {
+        setLanguage('en'); // Default
+    }
+
     if (localStorage.getItem('mode') === 'dark') {
         body.classList.add('dark-mode');
         modeToggle.textContent = '☀️';

@@ -81,7 +81,7 @@ h1 {
 
 body.dark-mode .time-unit {
     background: var(--dark-primary);
-    color: var(--dark-text);
+    color: var(--light-text);
 }
 
 .time-unit span {
@@ -92,6 +92,39 @@ body.dark-mode .time-unit {
 .time-unit label {
     font-size: 0.8em;
     text-transform: uppercase;
+}
+
+/* --- NEW: Location Styling --- */
+.location-display {
+    margin-top: 30px;
+    border-top: 1px dashed #ccc;
+    padding-top: 20px;
+}
+
+body.dark-mode .location-display {
+    border-top: 1px dashed #444;
+}
+
+.location-display h3 {
+    margin-bottom: 5px;
+    font-size: 1.2em;
+}
+
+.location-link {
+    font-weight: bold;
+    color: var(--light-primary); /* Use the primary color */
+    text-decoration: none;
+    transition: color 0.3s;
+    display: inline-block;
+}
+
+.location-link:hover {
+    color: #cc6574; /* A slightly darker primary on hover */
+    text-decoration: underline;
+}
+
+body.dark-mode .location-link {
+    color: var(--dark-primary);
 }
 
 
@@ -126,11 +159,38 @@ body.dark-mode .time-unit {
     }
 }
 
-
-#mode-toggle {
+/* Menu Settings */
+.menu-setting {
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 15px;
+    right: 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    z-index: 20;
+}
+
+/* --- CSS for Language Toggle --- */
+.menu-setting #lang-toggle {
+    padding: 10px 12px;
+    font-size: 1.2em;
+    cursor: pointer;
+    background: none;
+    border: 2px solid var(--light-text);
+    border-radius: 50%;
+    transition: all 0.3s;
+    z-index: 20;
+}
+
+body.dark-mode .menu-setting #lang-toggle {
+    border-color: var(--dark-text);
+    color: var(--dark-text);
+}
+
+/* Dark & Light Mode Toggle */
+.menu-setting #mode-toggle {
     padding: 10px;
     font-size: 1.2em;
     cursor: pointer;
@@ -141,7 +201,7 @@ body.dark-mode .time-unit {
     z-index: 20;
 }
 
-body.dark-mode #mode-toggle {
+body.dark-mode .menu-setting #mode-toggle {
     border-color: var(--dark-text);
 }
 
